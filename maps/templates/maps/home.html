@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    {% load static %}
+    <script src="{% static 'js/submit-form.js' %}"></script>
+    <title>Folium app</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand mb-10 h1" href="#">Carte des régions avec tuiles</a>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- Remplacez cette partie dans le body -->
+            <div id="map-container" class="col-sm-9">
+                <!-- Folium Map -->
+                {% block folium_map %}
+                {{ map|safe}}
+                {% endblock %}
+            </div>
+            <div class="col-md-3 form-background">
+                <!-- Form -->
+                <div class="card md-10">
+                    <div class="card-header">Choisissez la région :</div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-secondary" data-url="{% url 'home' %}">Envoyer</button>
+                        </form>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="navbar mt-auto bg-dark py-3 pt-4">
+        <div class="text-center text-white">
+            © 2024 Copyright:
+            <a class="text-body">Althea Feuillet</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
